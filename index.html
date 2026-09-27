@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Navigo | Smart Navigation</title>
+
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            ➤
+        </div>
+
+        <div>
+            <h2>Navigo</h2>
+            <p>Smart Navigation System</p>
+        </div>
+
+    </div>
+
+    <div class="online-status">
+        <span></span>
+        MAP ONLINE
+    </div>
+
+</nav>
+
+
+<main class="container">
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+        <div class="badge">
+            ✦ SMART ROUTE PLANNER
+        </div>
+
+        <h1>
+            Navigate Smarter.<br>
+            <span>Travel Better.</span>
+        </h1>
+
+        <p>
+            Plan your journey, track your live location,
+            discover nearby places and find smarter routes.
+        </p>
+
+    </section>
+
+
+    <!-- ================= JOURNEY ================= -->
+
+    <section class="journey-card">
+
+        <div class="section-heading">
+
+            <div>
+                <span class="section-tag">YOUR JOURNEY</span>
+                <h2>Plan Your Route</h2>
+                <p>Enter your starting point and destination</p>
+            </div>
+
+        </div>
+
+
+        <div class="inputs">
+
+            <!-- START -->
+
+            <div class="input-group">
+
+                <label>📍 Starting Location</label>
+
+                <input
+                    type="text"
+                    id="startLocation"
+                    placeholder="Enter starting location"
+                >
+
+                <button
+                    id="locationBtn"
+                    class="location-btn">
+
+                    ◎ Use My Live Location
+
+                </button>
+
+            </div>
+
+
+            <!-- DESTINATION -->
+
+            <div class="input-group">
+
+                <label>🎯 Destination</label>
+
+                <input
+                    type="text"
+                    id="destination"
+                    placeholder="Where do you want to go?"
+                >
+
+            </div>
+
+        </div>
+
+
+        <button id="routeBtn" class="route-btn">
+
+            <span>Find My Route</span>
+            <b>→</b>
+
+        </button>
+
+
+        <p id="message"></p>
+
+
+        <div id="confirmedBox" class="confirmed hidden">
+            ✓ Route confirmed
+        </div>
+
+    </section>
+
+
+    <!-- ================= MAP ================= -->
+
+    <section class="map-card">
+
+        <div class="map-top">
+
+            <div>
+
+                <span>LIVE NAVIGATION</span>
+
+                <strong id="mapStatus">
+                    Waiting for your journey...
+                </strong>
+
+            </div>
+
+            <button id="fitRouteBtn">
+                ⛶ Fit Route
+            </button>
+
+        </div>
+
+
+        <div id="map"></div>
+
+
+        <div class="map-legend">
+
+            <div>
+                <i class="live-dot"></i>
+                Live Location
+            </div>
+
+            <div>
+                <i class="start-dot"></i>
+                Start
+            </div>
+
+            <div>
+                <i class="destination-dot"></i>
+                Destination
+            </div>
+
+            <div>
+                <i class="route-line"></i>
+                Route
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= ROUTE INFORMATION ================= -->
+
+    <section class="route-section">
+
+        <div class="section-heading">
+
+            <div>
+                <span class="section-tag">ROUTE DETAILS</span>
+                <h2>Journey Information</h2>
+                <p>Your selected route information</p>
+            </div>
+
+            <div class="waiting">
+                WAITING
+            </div>
+
+        </div>
+
+
+        <div class="info-grid">
+
+            <div class="info-card">
+
+                <div class="info-icon blue">
+                    📏
+                </div>
+
+                <span>Distance</span>
+
+                <strong id="distance">
+                    -- km
+                </strong>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="info-icon purple">
+                    ⏱
+                </div>
+
+                <span>Estimated Time</span>
+
+                <strong id="time">
+                    -- min
+                </strong>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="info-icon orange">
+                    ⇄
+                </div>
+
+                <span>Available Routes</span>
+
+                <strong id="routes">
+                    --
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div id="recommendation" class="recommendation">
+
+            <div class="recommendation-icon">
+                💡
+            </div>
+
+            <div>
+
+                <strong>Smart Recommendation</strong>
+
+                <p>
+                    Enter your journey to receive a smart route suggestion.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= NEARBY ================= -->
+
+    <section class="nearby-section">
+
+        <div class="section-heading">
+
+            <div>
+                <span class="section-tag">EXPLORE NEARBY</span>
+                <h2>Nearby Places</h2>
+                <p>Useful places around your destination</p>
+            </div>
+
+        </div>
+
+
+        <div class="nearby-buttons">
+
+            <button
+                class="nearby-btn hospital"
+                data-type="hospital">
+
+                <span>🏥</span>
+                Hospital
+
+            </button>
+
+
+            <button
+                class="nearby-btn fuel"
+                data-type="fuel">
+
+                <span>⛽</span>
+                Petrol Station
+
+            </button>
+
+
+            <button
+                class="nearby-btn restaurant"
+                data-type="restaurant">
+
+                <span>🍴</span>
+                Restaurant
+
+            </button>
+
+        </div>
+
+
+        <div
+            id="nearbyResult"
+            class="nearby-result">
+
+            Find a route first to explore nearby places.
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FEATURES ================= -->
+
+    <section class="features-section">
+
+        <div class="feature-card purple-card">
+
+            <div class="feature-icon">
+                ⇄
+            </div>
+
+            <div>
+                <h3>Smart Routes</h3>
+                <p>Multiple route options</p>
+            </div>
+
+        </div>
+
+
+        <div class="feature-card cyan-card">
+
+            <div class="feature-icon">
+                ◎
+            </div>
+
+            <div>
+                <h3>Live Location</h3>
+                <p>Real-time GPS tracking</p>
+            </div>
+
+        </div>
+
+
+        <div class="feature-card orange-card">
+
+            <div class="feature-icon">
+                ⌖
+            </div>
+
+            <div>
+                <h3>Nearby Places</h3>
+                <p>Find useful locations</p>
+            </div>
+
+        </div>
+
+
+        <div class="feature-card green-card">
+
+            <div class="feature-icon">
+                ✦
+            </div>
+
+            <div>
+                <h3>Smart Suggestion</h3>
+                <p>Route recommendation</p>
+            </div>
+
+        </div>
+
+
+        <div class="feature-card pink-card">
+
+            <div class="feature-icon">
+                ⚡
+            </div>
+
+            <div>
+                <h3>Fast Search</h3>
+                <p>Quick location search</p>
+            </div>
+
+        </div>
+
+
+        <div class="feature-card yellow-card">
+
+            <div class="feature-icon">
+                🛣
+            </div>
+
+            <div>
+                <h3>Easy Navigation</h3>
+                <p>Simple journey planning</p>
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <strong>Navigo</strong>
+
+    <p>
+        Smart Navigation System • Built for smarter journeys
+    </p>
+
+</footer>
+
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
