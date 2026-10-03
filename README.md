@@ -23,7 +23,6 @@ NaviGo is a web-based smart navigation system that helps users find routes betwe
 - HTML
 - CSS
 - JavaScript
-- Leaflet.js
 
 ## 🌐 APIs Used
 
